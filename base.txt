@@ -1,0 +1,72 @@
+# base requirements
+
+# django
+Django==5.2.*
+# rest framework
+djangorestframework==3.16.*
+# JWT Authentication
+djangorestframework-simplejwt==5.*
+PyJWT==2.10.*
+# CORS
+django-cors-headers==4.7.*
+# form parsers
+FormEncode==2.1.*
+# filters
+django-filter==25.*
+# storage
+azure-storage-blob==12.25.*
+django-storages==1.14.*
+# ip address handling
+django-ipware==7.0.*
+# django migrations
+django-migration-linter==5.1.*
+# global user context
+django-crum==0.7.*
+# environment variables
+python-dotenv==1.0.*
+azure-identity==1.21.*
+azure-keyvault-secrets==4.9.*
+# logging
+structlog==25.2.*
+django-structlog==9.0.*
+# timezone
+pytz==2025.1
+# documentation
+drf-spectacular==0.28.*
+# pandas
+pandas==2.2.*
+# crons
+django-crontab==0.7.*
+# file handling
+openpyxl==3.1.*
+XlsxWriter==3.2.*
+# ssh and soap
+fabric==3.2.*
+zeep==4.3.*
+paramiko==3.5.*
+# email service
+azure-communication-email==1.0.*
+# EPCIS file handling
+biip==3.6.*
+EPCPyYes==4.0.*
+Jinja2==3.1.*
+xmltodict==0.14.*
+lxml==5.3.*
+et_xmlfile==2.0.*
+# resource monitoring
+psutil==7.0.*
+# health check
+django-health-check==3.19.*
+# service bus
+azure-servicebus==7.14.*
+# OpenTelemetry core packages
+opentelemetry-api==1.36.*
+opentelemetry-sdk==1.36.*
+opentelemetry-exporter-otlp==1.36.*
+# OpenTelemetry instrumentations
+opentelemetry-instrumentation-django==0.57b0
+opentelemetry-instrumentation-requests==0.57b0
+opentelemetry-instrumentation-psycopg2==0.57b0
+opentelemetry-instrumentation-logging==0.57b0
+# scheme validators
+atlas-provider-django==0.2.4
