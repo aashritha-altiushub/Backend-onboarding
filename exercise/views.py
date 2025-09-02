@@ -3,10 +3,10 @@ from .models import User, Country, State, City
 from .serializers import UserSerializer, CountrySerializer, StateSerializer, CitySerializer
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.pagination import CursorPagination
-from rest_framework.authtoken.models import Token
+from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework.authtoken.views import ObtainAuthToken
+from rest_framework import status
 
 
 class UserPagination(CursorPagination):
@@ -36,15 +36,42 @@ class UserUpdateView(generics.UpdateAPIView):
 
 class UserDeleteView(generics.DestroyAPIView):
     queryset = User.objects.all()
-    serializer_class = UserSerializer
-    permission_classes = [IsAuthenticated]
+    serializer_class = UserSerializer  
 
-class SignInView(ObtainAuthToken):
-    def post(self, request, *args, **kwargs):
-        response= super().post(request, *args, **kwargs)
-        token = Token.objects.get(key=response.data['token'])
-        return Response({'token': token.key, 'user_id': token.user_id, 'email': token.user.email})
-    
+class SignInView(APIView):
+    permission_classes = [AllowAny]
+
+    def post(self, request):
+        email = request.data.get('email')
+        password = request.data.get('password')
+
+        if not email or not password:
+            return Response({'error': 'Email and password are required.'}, status=status.HTTP_400_BAD_REQUEST)
+
+        user = User.objects.filter(email=email).first()
+        if user is None or not user.check_password(password):
+            return Response({'error': 'Invalid email or password.'}, status=status.HTTP_401_UNAUTHORIZED)
+
+        refresh = RefreshToken.for_user(user)
+
+        return Response({
+            'refresh': str(refresh),
+            'access': str(refresh.access_token),
+            'user_id': str(user.id),
+            'email': user.email,
+            'message': 'Sign in successful'
+        }, status=status.HTTP_200_OK)
+        # token = Token.objects.create(user=user)[0]
+        
+        # return Response({
+        #     'token': token.key,
+        #     'user_id': str(user.id),
+        #     'email': user.email,
+        #     'message': 'Sign in successful'
+        # }, status=status.HTTP_200_OK)
+
+
+
 class SignOutView(APIView):
     permission_classes = [IsAuthenticated]
 

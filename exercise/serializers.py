@@ -4,12 +4,12 @@ from .models import User,Country, State, City
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['id', 'email']
+        fields  = "__all__"
 
 class CountrySerializer(serializers.ModelSerializer):
     class Meta:
         model = Country
-        fields = ['id', 'name', 'country_code', 'curr_symbol', 'phone_code']
+        fields = ['id', 'name', 'country_code', 'curr_symbol', 'phone_code','my_user']
 
 
 class StateSerializer(serializers.ModelSerializer):
